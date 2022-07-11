@@ -1,0 +1,26 @@
+{
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/",
+  ],
+  "compilerOptions": {
+    "target": "ES2015",
+    "moduleResolution": "node",
+    "typeRoots": [
+      "src/**/*.d.ts",
+    ],
+    "lib": [
+      "ES6",
+      "DOM",
+    ],
+    "types": [
+      "node",
+      "offscreencanvas"
+    ],
+    "strict": true,
+    "outDir": "public/build",
+    "esModuleInterop": true
+  },
+}
