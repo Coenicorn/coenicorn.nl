@@ -38,6 +38,4 @@ class time {
     }
 }
 
-const Time = new time(60);
-
-export default Time;
+export const Time = new time(60);

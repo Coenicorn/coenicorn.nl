@@ -1,7 +1,8 @@
+import { Input } from "./input.js";
 import { IlevelContainer, Level } from "./level.js";
 import { IimageContainer } from "./loader.js";
 import { Renderer } from "./renderer/renderer.js";
-import Time from "./time.js";
+import { Time } from "./time.js";
 import { Vec2 } from "./vec2.js";
 
 export default class Game {
@@ -33,10 +34,26 @@ export default class Game {
 
     init(): void {
         // initialize levels
-        this.levels["hub"] = new Level(this.assets["dirt_1"], 100, 100, new Vec2(0, 0));
+        this.levels["hub"] = new Level({
+            width: 5,
+            height: 5,
+            tileSize: 128,
+            spawn: Vec2.ZERO,
+            layout: [
+                0, 0, 1, 1, 0,
+                0, 1, 1, 1, 1,
+                0, 1, 1, 1, 1,
+                0, 1, 1, 1, 0,
+                1, 1, 1, 0, 0
+            ],
+            spriteReference: [
+                this.assets["grass"],
+                this.assets["water"]
+            ]
+        });
 
         this.running = true;
-        
+
         Time.init();
 
         this.update();
@@ -49,6 +66,19 @@ export default class Game {
         // show fps
         document.getElementById("fps")!.innerHTML = `fps: ${Math.round(Time.deltaTime * Time.fps)}`;
 
+        if (Input.isPressed("s")) {
+            this.renderer.cameraPos.y += Time.deltaTime * 4;
+        }
+        if (Input.isPressed("w")) {
+            this.renderer.cameraPos.y -= Time.deltaTime * 4;
+        }
+        if (Input.isPressed("a")) {
+            this.renderer.cameraPos.x -= Time.deltaTime * 4;
+        }
+        if (Input.isPressed("d")) {
+            this.renderer.cameraPos.x += Time.deltaTime * 4;
+        }
+
         this.render();
 
         if (this.running)
@@ -56,6 +86,9 @@ export default class Game {
     }
 
     render(): void {
+        this.renderer.clear();
+        this.renderer.context.imageSmoothingEnabled = false;
+
         // render the level
         let l = this.levels[this.currentLevel];
         if (!l) throw new Error(`Level ${this.currentLevel} does not exist`);

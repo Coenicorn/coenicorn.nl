@@ -22,11 +22,19 @@
             height: 100vh;
             overflow: hidden;
         }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        #main {
+            color: black;
+        }
     </style>
 </head>
 
 <body>
-    <canvas id="gameScreen"></canvas>
     <div id="main">
         <p id="fps">fps</p>
     </div>

@@ -1,13 +1,11 @@
 export type IimageContainer = IobjectContainer<HTMLImageElement>;
 
-async function importImage(source: string): Promise<HTMLImageElement> {
+export async function importImage(source: string): Promise<HTMLImageElement> {
     return new Promise<HTMLImageElement>((resolve, reject) => {
-        console.log(`[Assets] Started loading image ${source}`);
-
         const img = new Image();
         img.src = source;
-        img.onload = function () { resolve(img); console.log(`[Assets] Loaded image ${source}`) };
-        img.onerror = function (e) { reject(e) };
+        img.onload = function () { resolve(img) };
+        img.onerror = function (e) { throw e };
     });
 }
 

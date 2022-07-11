@@ -22,9 +22,6 @@ export class Renderer {
         this.canvas.width = this.width;
         this.canvas.height = this.height;
 
-        this.canvas.style.backgroundColor = "black";
-        this.canvas.style.position = "absolute";
-
         elm.appendChild(this.canvas);
 
         this.cameraPos = Vec2.ZERO;
@@ -33,7 +30,7 @@ export class Renderer {
     }
 
     getOffsetPosition(gamePos: Vec2): Vec2 {
-        return this.cameraPos.add(gamePos).add(this.center);
+        return gamePos.sub(this.cameraPos).add(this.center);
     }
 
     clear(): void {
